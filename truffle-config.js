@@ -18,11 +18,16 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+require('babel-register');
+require('babel-polyfill');
+require('dotenv').config();
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const {
+  MNENOMIC: MNENOMIC,
+  BSCSCAN_API_KEY: BSCSCAN_API_KEY
+} = process.env;
 
 module.exports = {
   /**
@@ -36,6 +41,30 @@ module.exports = {
    */
 
   networks: {
+    /**
+     * bscTestnet: BSC Testnet config
+     */
+    bscTestnet: {
+      provider: () => new HDWalletProvider({
+        privateKeys: [MNENOMIC],
+        providerOrUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545'
+      }),
+      network_id: "97",
+      gas: 5000000,
+      production: true
+    },
+    /**
+     * bscMainnet: BSC Mainnet config
+     */
+    bscMainnet: {
+      provider: () => new HDWalletProvider({
+        privateKeys: [MNENOMIC],
+        providerOrUrl: 'https://bsc-dataseed.binance.org'
+      }),
+      network_id: "56",
+      gas: 5000000,
+      production: true
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -74,6 +103,14 @@ module.exports = {
     // }
   },
 
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+
+  api_keys: {
+    bscscan: BSCSCAN_API_KEY
+  },
+
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
@@ -82,7 +119,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.6.12",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
