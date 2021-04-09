@@ -28,4 +28,23 @@ interface IStrategy {
         uint256 _amount,
         address _to
     ) external;
+
+    function farm() external;
+
+    function pause() external;
+
+    function unpause() external;
+
+    function rebalance(uint256 _borrowRate, uint256 _borrowDepth) external;
+
+    function deleverageOnce() external;
+
+    function wrapBNB() external; // Specifically for the Venus WBNB vault.
+
+    // In case new vaults require functions without a timelock as well, hoping to avoid having multiple timelock contracts
+    function noTimeLockFunc1() external;
+
+    function noTimeLockFunc2() external;
+
+    function noTimeLockFunc3() external;
 }
