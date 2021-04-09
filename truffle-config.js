@@ -25,7 +25,7 @@ require('dotenv').config();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const {
-  MNENOMIC: MNENOMIC,
+  MNEMONIC: MNEMONIC,
   BSCSCAN_API_KEY: BSCSCAN_API_KEY
 } = process.env;
 
@@ -46,8 +46,8 @@ module.exports = {
      */
     bscTestnet: {
       provider: () => new HDWalletProvider({
-        privateKeys: [MNENOMIC],
-        providerOrUrl: 'https://data-seed-prebsc-1-s1.binance.org:8545'
+        privateKeys: [MNEMONIC],
+        providerOrUrl: 'https://data-seed-prebsc-1-s2.binance.org:8545/'
       }),
       network_id: "97",
       gas: 5000000,
@@ -58,7 +58,7 @@ module.exports = {
      */
     bscMainnet: {
       provider: () => new HDWalletProvider({
-        privateKeys: [MNENOMIC],
+        privateKeys: [MNEMONIC],
         providerOrUrl: 'https://bsc-dataseed.binance.org'
       }),
       network_id: "56",

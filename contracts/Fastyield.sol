@@ -62,7 +62,7 @@ contract Fastyield is Ownable, ReentrancyGuard {
         uint256 amount
     );
 
-    constructor (address _FAST) internal {
+    constructor (address _FAST) public {
         FAST = _FAST;
     }
 
